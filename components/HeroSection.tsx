@@ -36,12 +36,12 @@ const HeroSection: React.FC = () => {
 
       {/* Hero Text */}
       <div className="relative z-10 text-center px-4 mix-blend-screen pointer-events-none">
-        <h1 className="hero-title text-[15vw] md:text-[20vw] leading-none font-anton flex justify-center overflow-hidden select-none">
+        <h1 className="hero-title text-[12vw] md:text-[14vw] leading-[0.9] font-anton tracking-tighter flex justify-center overflow-hidden select-none">
           {data.config.siteTitle.split('').map((char, i) => (
-            <span key={i} className="inline-block text-white">{char}</span>
+            <span key={i} className="inline-block text-white font-black">{char}</span>
           ))}
         </h1>
-        <p className="hero-subtitle mt-4 text-lg md:text-2xl font-light tracking-[0.3em] uppercase opacity-80 text-[#FF5E00]">
+        <p className="hero-subtitle mt-2 text-sm md:text-xl font-bold tracking-[0.4em] uppercase opacity-90 text-[#FF5E00]">
           {data.config.tagline}
         </p>
       </div>
@@ -53,7 +53,7 @@ const HeroSection: React.FC = () => {
       </div>
       
       {/* Vignette Overlay for Depth */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] z-[5]"></div>
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)] z-[5]"></div>
     </section>
   );
 };

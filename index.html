@@ -17,28 +17,37 @@
         font-family: 'Manrope', sans-serif;
         overflow-x: hidden;
       }
-      h1, h2, h3, .font-anton {
+      #root:empty::before {
+        content: 'LOADING METAFOR CORE...';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         font-family: 'Anton', sans-serif;
-        text-transform: uppercase;
+        letter-spacing: 0.5em;
+        font-size: 12px;
+        color: #FF5E00;
+        animation: pulse 1.5s infinite;
       }
-      .mix-blend-exclusion {
-        mix-blend-mode: exclusion;
+      @keyframes pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
       }
-      .smooth-scroll-container {
-        scroll-behavior: smooth;
-      }
-      ::-webkit-scrollbar {
-        width: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #050505;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #FF5E00;
-        border-radius: 10px;
-      }
-      #root {
-        min-height: 100vh;
+      #error-display {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(255,0,0,0.1);
+        border: 1px solid rgba(255,0,0,0.3);
+        color: #ff8888;
+        padding: 15px;
+        font-family: monospace;
+        font-size: 12px;
+        z-index: 9999;
+        display: none;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
       }
     </style>
     <script type="importmap">
@@ -58,10 +67,32 @@
       }
     }
     </script>
-    <!-- 실제 웹 서버 환경에서 index.tsx 모듈을 로드하기 위한 필수 태그 -->
-    <script type="module" src="./index.tsx"></script>
+    <script>
+      // 실시간 에러 감지 (호스팅 환경 디버깅용)
+      window.onerror = function(msg, url, line, col, error) {
+        var display = document.getElementById('error-display');
+        if (display) {
+          display.style.display = 'block';
+          display.innerHTML = '<strong>RUNTIME ERROR:</strong><br>' + msg + '<br><small>' + url + ' L:' + line + '</small>';
+        }
+        return false;
+      };
+      window.addEventListener('unhandledrejection', function(event) {
+        var display = document.getElementById('error-display');
+        if (display) {
+          display.style.display = 'block';
+          display.innerHTML = '<strong>PROMISE ERROR:</strong><br>' + event.reason;
+        }
+      });
+    </script>
+    <!-- .tsx 파일은 브라우저가 읽을 수 없으므로 빌드 도구가 변환한 .js 파일을 로드해야 함 -->
+    <!-- 개발 환경과 배포 환경의 호환성을 위해 아래와 같이 설정 -->
+    <script type="module">
+      import "./index.tsx";
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <div id="error-display"></div>
   </body>
 </html>
