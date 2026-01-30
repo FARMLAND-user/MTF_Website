@@ -1,7 +1,5 @@
 {
   "name": "METAFOR - Integrated Brand Management",
   "description": "A high-end, award-winning corporate website for METAFOR, featuring avant-garde design, 3D fluid visuals, and a robust admin dashboard.",
-  "requestFramePermissions": [
-    "geolocation"
-  ]
+  "requestFramePermissions": []
 }

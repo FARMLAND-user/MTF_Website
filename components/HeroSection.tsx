@@ -15,14 +15,14 @@ const HeroSection: React.FC = () => {
         opacity: 0,
         duration: 1.5,
         stagger: 0.1,
-        ease: "power4.out"
+        ease: "expo.out"
       });
       gsap.from(".hero-subtitle", {
         opacity: 0,
         y: 20,
-        duration: 1,
+        duration: 1.2,
         delay: 1,
-        ease: "power2.out"
+        ease: "power3.out"
       });
     }, containerRef);
 
@@ -31,29 +31,31 @@ const HeroSection: React.FC = () => {
 
   return (
     <section ref={containerRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#000]">
-      {/* Interactive Universe Background */}
+      {/* Original Dynamic Universe Background */}
       <UniverseBackground />
 
-      {/* Hero Text */}
+      {/* Hero Content */}
       <div className="relative z-10 text-center px-4 mix-blend-screen pointer-events-none">
-        <h1 className="hero-title text-[10vw] md:text-[11vw] leading-[0.85] font-anton tracking-tighter flex justify-center overflow-hidden select-none">
+        <h1 className="hero-title text-[8.5vw] md:text-[9vw] leading-[0.75] font-anton tracking-[-0.07em] flex justify-center overflow-hidden select-none">
           {data.config.siteTitle.split('').map((char, i) => (
-            <span key={i} className="inline-block text-white font-black drop-shadow-2xl">{char}</span>
+            <span key={i} className="inline-block text-white font-black drop-shadow-[0_20px_50px_rgba(0,0,0,0.95)]">
+              {char}
+            </span>
           ))}
         </h1>
-        <p className="hero-subtitle mt-4 text-sm md:text-lg font-extrabold tracking-[0.5em] uppercase opacity-95 text-[#FF5E00]">
+        <p className="hero-subtitle mt-10 text-[10px] md:text-xs font-black tracking-[0.8em] uppercase opacity-100 text-[#FF5E00] drop-shadow-[0_5px_15px_rgba(255,94,0,0.4)]">
           {data.config.tagline}
         </p>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 z-20">
-        <span className="text-[10px] tracking-[0.2em] uppercase text-white">Explore</span>
-        <div className="w-[1px] h-12 bg-[#FF5E00] origin-top animate-pulse"></div>
+      {/* Aesthetic Scroll Indicator */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 z-20">
+        <span className="text-[9px] tracking-[0.5em] uppercase text-white font-bold">Converge</span>
+        <div className="w-[1px] h-16 bg-gradient-to-b from-[#FF5E00] to-transparent origin-top animate-bounce"></div>
       </div>
       
-      {/* Vignette Overlay for Depth */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] z-[5]"></div>
+      {/* Artistic Vignette */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_10%,rgba(0,0,0,0.9)_100%)] z-[5]"></div>
     </section>
   );
 };

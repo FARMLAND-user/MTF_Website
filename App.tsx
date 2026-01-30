@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { CMSData } from './types';
@@ -26,13 +27,23 @@ export const useCMS = () => {
 
 const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data, setData] = useState<CMSData>(() => {
-    const saved = localStorage.getItem('metafor_cms_data');
-    return saved ? JSON.parse(saved) : INITIAL_CMS_DATA;
+    try {
+      const saved = localStorage.getItem('metafor_cms_data');
+      if (!saved) return INITIAL_CMS_DATA;
+      return JSON.parse(saved);
+    } catch (e) {
+      console.warn("Failed to load CMS data from localStorage, using defaults.", e);
+      return INITIAL_CMS_DATA;
+    }
   });
 
   const updateData = (newData: CMSData) => {
-    setData(newData);
-    localStorage.setItem('metafor_cms_data', JSON.stringify(newData));
+    try {
+      setData(newData);
+      localStorage.setItem('metafor_cms_data', JSON.stringify(newData));
+    } catch (e) {
+      console.error("Failed to save to localStorage:", e);
+    }
   };
 
   return (
